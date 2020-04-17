@@ -7,8 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:QuizApp/main.dart';
+import 'package:F:\ishitva backup\Projects\QuizApp\lib\main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
