@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/result.dart';
 
-import './question.dart';
-import './answer.dart';
+import 'quiz.dart';
+import 'result.dart';
 
 // void main(){
 //   runApp(MyApp());
@@ -19,30 +20,30 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _queIndex = 0;
-  final que = const [
-      {
-        'que': 'What\'s your favorite colour?',
-        'answer': ['Black', 'Red', 'Green', 'White'],
-      },
-      {
-        'que': 'What\'s your favorite animal?',
-        'answer': ['Dog', 'Rabbit', 'Monkey', 'Cat'],
-      },
-      {
-        'que': 'What\'s your favorite food?',
-        'answer': ['Sandwich', 'Parathas', 'Dosa', 'Pav Bhaji'],
-      },
-    ];
+  final _que = const [
+    {
+      'que': 'What\'s your favorite colour?',
+      'answer': ['Black', 'Red', 'Green', 'White'],
+    },
+    {
+      'que': 'What\'s your favorite animal?',
+      'answer': ['Dog', 'Rabbit', 'Monkey', 'Cat'],
+    },
+    {
+      'que': 'What\'s your favorite food?',
+      'answer': ['Sandwich', 'Parathas', 'Dosa', 'Pav Bhaji'],
+    },
+  ];
 
   void _answerQuestion() {
-    if (_queIndex < que.length)
-    {
-      
-    }
     setState(() {
       _queIndex = _queIndex + 1;
     });
-    print('Answer Chosen');
+    if (_queIndex < _que.length) {
+      print('We have more questions!');
+    } else {
+      print('No more questions!');
+    }
   }
 
   @override
@@ -52,14 +53,13 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('My first app'),
         ),
-        body: Column(
-          children: [
-            Question(que[_queIndex]['que']),
-            ...(que[_queIndex]['answer'] as List<String>).map((answer) {
-              return Answer(_answerQuestion, answer);
-            }).toList()
-          ],
-        ),
+        body: _queIndex < _que.length
+            ? Quiz(
+                question: _que,
+                answerQuestion: _answerQuestion,
+                queIndex: _queIndex,
+              )
+            : Result(),
       ),
     );
   }
